@@ -1,6 +1,38 @@
 # scrollunlock_passwd
 scrollunlock_passwd file parser
 
+## Setup
+
+### 1. Create a virtual environment
+
+```bash
+python3 -m venv venv
+```
+
+### 2. Activate the virtual environment
+
+**Linux/macOS:**
+```bash
+source venv/bin/activate
+```
+
+**Windows:**
+```bash
+venv\Scripts\activate
+```
+
+### 3. Install required packages
+
+```bash
+pip install -r requirements.txt
+```
+
+### 4. Run the app
+
+```bash
+streamlit run passwd_parser.py
+```
+
 ## How it works
 
 Sometimes the `/etc/passwd` file is very big and difficult to read in a normal editor or terminal view. To make it easier to understand:
