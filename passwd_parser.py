@@ -56,10 +56,41 @@ if st.button("Parse and Display Table") and passwd_content.strip():
     if users:
         # Create DataFrame for nice table display
         df = pd.DataFrame(users)
+
+        # Highlight accounts by privilege level
+        def highlight_row(row):
+            uid = row.get("UID", "")
+            username = row.get("Username", "")
+            user_type = row.get("Type", "")
+            try:
+                uid_int = int(uid)
+            except ValueError:
+                uid_int = None
+
+            # Superuser / root: red background, white text
+            if uid_int == 0 or user_type == "Superuser" or username == "root":
+                return ["background-color: red; color: white"] * len(row)
+
+            # Extremely low-privilege account (e.g. nobody)
+            if user_type == "Unprivileged" or username == "nobody":
+                return ["background-color: #006400; color: white"] * len(row)
+
+            # Normal interactive users (least-privilege human accounts)
+            if user_type == "Interactive":
+                return ["background-color: yellow; color: black"] * len(row)
+
+            # Service / system accounts
+            if user_type.startswith("System") or user_type == "Systemd":
+                return ["background-color: #1e90ff; color: white"] * len(row)
+
+            # Default: no special styling
+            return [""] * len(row)
+
+        styled_df = df.style.apply(highlight_row, axis=1)
         
         # Display the table
         st.subheader("Parsed User Table")
-        st.dataframe(df, use_container_width=True)
+        st.dataframe(styled_df, use_container_width=True)
         
         # Optional: Show raw count
         st.info(f"Total users parsed: {len(users)}")

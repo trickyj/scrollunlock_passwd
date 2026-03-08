@@ -46,3 +46,12 @@ Sometimes the `/etc/passwd` file is very big and difficult to read in a normal e
 
 ![Password parser step 1](assets/password_1.png)
 ![Password parser step 2](assets/password_2.png)
+![Password parser step 3](assets/3.png)
+![Password parser step 4](assets/4.png)
+
+## Color legend
+
+- **Red**: Root / superuser accounts (UID 0, highest privilege).
+- **Blue**: Service or system accounts (e.g. `www-data`, `sshd`, `systemd-*`).
+- **Yellow**: Normal interactive user accounts (regular login users).
+- **Dark green**: Lowest-privilege / unprivileged accounts (e.g. `nobody`).
